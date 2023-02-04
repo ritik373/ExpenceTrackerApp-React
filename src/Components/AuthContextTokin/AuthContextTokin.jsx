@@ -10,19 +10,19 @@ const authContext=createContext({
 })
 
   function AuthContextTokin(props) {
-    // const initialToken=localStorage.getItem('token');
+    const initialToken=localStorage.getItem('token');
 
-    const [token,setToken]=useState(null);
+    const [token,setToken]=useState(initialToken);
 
      let isLoggedIn=!!token;
 
     const logInhandler=(token)=>{
         setToken(token);
-        // localStorage.setItem('token',token);
+        localStorage.setItem('token',token);
     }
     const logOutHandler=()=>{
         setToken(null);
-        // localStorage.removeItem('token')
+        localStorage.removeItem('token')
     }
 
 

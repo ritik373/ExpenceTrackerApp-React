@@ -3,19 +3,27 @@ import { useRef } from 'react';
 import './profile.css'
 import { authContext } from '../AuthContextTokin/AuthContextTokin';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ProfilePage(props) {
     const AuthContxtTokin=useContext(authContext);
     const nameInputRef=useRef();
     const urlInputRef=useRef();
+    const navigate=useNavigate();
 
-    const onClickHandle=(e)=>{
+    const onCancelhandler=(e)=>{
+        e.preventDefault();
+        navigate('/welcomepage',{replace:true})
+
+
+    }
+
+    const onClickHandle=async(e)=>{
         e.preventDefault();
         const nameInput=nameInputRef.current.value;
         const urlInput=urlInputRef.current.value;
 
-        fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCqfrReMNu5wYBdFb8N8TIcd6T0X2_NsjA', {
+       await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCqfrReMNu5wYBdFb8N8TIcd6T0X2_NsjA', {
             method: 'POST',
             body: JSON.stringify({
                  idToken: AuthContxtTokin.token,
@@ -30,6 +38,8 @@ function ProfilePage(props) {
             if(res.ok){
                 return res.json().then((responce)=>{
                     console.log(responce)
+                    alert('Your Profile is Completed')
+                    navigate('/welcomepage',{replace:true})
                 })
             }else{
                 console.log("idToken Not found")
@@ -50,7 +60,7 @@ function ProfilePage(props) {
             </div>
             <div className='contactdetail'>
                 <h2>Contact Deatil</h2>
-                <button className='cancelBtn'>Cancel</button>
+                <button className='cancelBtn' onClick={onCancelhandler}>Cancel</button>
             </div>
             <form className='form' >
                 <img src="src\Components\asset\git.png" alt="" style={{ width: "35px" }} /><span >Full Name</span>
