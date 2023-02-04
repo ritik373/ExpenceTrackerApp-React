@@ -1,0 +1,29 @@
+.topbar{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+.form{
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-around;
+
+}
+.contactdetail{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+  
+}
+.cancelBtn{
+    background-color: red;
+    color: azure;
+    
+}
+.updateBtn{
+    margin-top: 100px;
+    margin-left: 100px;
+    background-color: red;
+    color: azure;
+
+}

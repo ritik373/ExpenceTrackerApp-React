@@ -1,0 +1,11 @@
+.welcomepage{
+    display: flex;
+    justify-content: space-between;
+
+}
+.completeProfile{
+    background-color: gray;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5px;
+    margin-top: 10px;
+}

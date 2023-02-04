@@ -1,9 +1,12 @@
 import React,{useRef} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import classes from './Login.module.css'
+import { authContext } from '../AuthContextTokin/AuthContextTokin';
+import { useContext } from 'react';
 
 
 function LogIn(props) {
+  const AuthContext=useContext(authContext);
   const emailInputRef = useRef()
   const passwordInputRef = useRef()
   const navigate=useNavigate()
@@ -25,6 +28,7 @@ function LogIn(props) {
           return res.json().then((responce)=>{
             console.log(responce)
             navigate('/welcomepage',{replace:true})
+            AuthContext.isLogIn(responce.idToken)
 
           })
 
