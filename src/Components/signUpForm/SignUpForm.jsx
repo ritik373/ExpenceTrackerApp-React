@@ -2,6 +2,7 @@ import React from 'react';
 import { useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 
 function SignUpForm(props) {
 
@@ -18,7 +19,7 @@ function SignUpForm(props) {
         const confirmPasswordInput = confirmPasswordInputRef.current.value;
         console.log(emailInput + " " + passwordInput + " " + confirmPasswordInput);
 
-        if (passwordInput === confirmPasswordInput) {
+        if (passwordInput === confirmPasswordInput  && passwordInput.length>0) {
             console.log("password are same")
 
             fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCqfrReMNu5wYBdFb8N8TIcd6T0X2_NsjA", {
@@ -67,7 +68,8 @@ function SignUpForm(props) {
                     <Form.Control type="password" placeholder="Confirm Password" ref={confirmPasswordInputRef} />
                 </Form.Group>
 
-                <Button variant="primary" type="submit"> Submit </Button>
+                <Button variant="primary" type="submit"> Submit </Button><span>
+                <Link to="/login"><Button variant="primary" ML="13" type="submit"> LogIn </Button></Link></span>
             </Form>
 
         </div>
