@@ -8,6 +8,7 @@ import ProfilePage from './Components/profilePage/ProfilePage'
 import { authContext } from './Components/AuthContextTokin/AuthContextTokin'
 import { useContext } from 'react'
 import ErrorPage from './Components/errorPage/ErrorPage'
+import ForgetPassword from './Components/ForgetPassword/ForgetPassword'
 
 
 
@@ -27,6 +28,7 @@ function App() {
         
         <Route path='/welcomepage' element={verifyUser?<WelcomePage/>:<ErrorPage/>}></Route>
         <Route path='/profile' element={verifyUser?<ProfilePage/>:<ErrorPage/>}></Route>
+        <Route path='/forgetpassword' element={<ForgetPassword/>}></Route>
 
       </Routes>
     </Fragment>

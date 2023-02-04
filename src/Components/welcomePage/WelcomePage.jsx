@@ -29,7 +29,7 @@ import { useContext } from 'react';
     }).then((res)=>{
         return res.json().then((res)=>{
           
-            console.log(res)
+            // console.log(res)
 
             for (const key in res) {
 
@@ -37,7 +37,8 @@ import { useContext } from 'react';
                     id:key,
                     title:res[key].title,
                     amount:res[key].amount,
-                    date:res[key].date,
+                    description:res[key].description,
+                    catagory:res[key].catagory,
                 })}
             setUserData(UserData);
 
@@ -99,7 +100,8 @@ console.log(data)
           <th>S.No</th>
           <th>Title</th>
           <th>Amount</th>
-          <th>Date</th>
+          <th>Catagory</th>
+          <th>Description</th>
         </tr>
       </thead>
 
@@ -109,7 +111,8 @@ console.log(data)
           <td>{index+1}</td>
           <td>{currvalue.title}</td>
           <td>{currvalue.amount}</td>
-          <td>{currvalue.date}</td>
+          <td>{currvalue.catagory}</td>
+          <td>{currvalue.description}</td>
         </tr>
         </tbody>
        })}

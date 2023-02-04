@@ -58,7 +58,9 @@ function LogIn(props) {
             <input type='password' id='password' ref={passwordInputRef} required />
           </div>
           <div className={classes.actions}>
+          <Link to="/forgetpassword">Forget PassWord?</Link>
             <button>LogIn</button>
+
 
             <Link to="/signup">Create new account</Link>
            
