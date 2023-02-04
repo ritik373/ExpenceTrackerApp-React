@@ -28,7 +28,7 @@ function LogIn(props) {
           return res.json().then((responce)=>{
             console.log(responce)
             navigate('/welcomepage',{replace:true})
-            AuthContext.isLogIn(responce.idToken)
+            AuthContext.isLogIn(responce.idToken,responce.email)
 
           })
 

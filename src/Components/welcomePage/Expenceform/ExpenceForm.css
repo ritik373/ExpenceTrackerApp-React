@@ -1,4 +1,4 @@
-form{
+ .welcomePageform{
     width:100vw;
     height: 400px;
     background-color: rgb(91, 214, 91);
@@ -8,9 +8,9 @@ form{
     grid-template-columns: auto auto ;
     grid-gap: 10px;
     align-items: center;
-    /* margin-left: -25px; */
-    /* border-radius: 30px; */
-    border: 5px solid wheat;
+    /* margin-left: -10px; */
+    border-radius: 30px;
+     border: 5px solid wheat;
    
 
     
@@ -21,7 +21,7 @@ button{
     color: yellow;
 }
 label{
-    /* width: auto; */
+
     font-size: 30px;
     font-weight: bold;
-}
+}  

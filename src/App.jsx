@@ -5,14 +5,19 @@ import LogIn from './Components/Login/LogIn'
 import { Route, Routes } from 'react-router-dom'
 import WelcomePage from './Components/welcomePage/WelcomePage'
 import ProfilePage from './Components/profilePage/ProfilePage'
+import { authContext } from './Components/AuthContextTokin/AuthContextTokin'
+import { useContext } from 'react'
+import ErrorPage from './Components/errorPage/ErrorPage'
 
 
 
 
 function App() {
+  const AuthContext=useContext(authContext);
+  const verifyUser=AuthContext.isLoggedIn;
   return (
     <Fragment>
-      <Navbar />
+      { verifyUser && <Navbar />}
 
 
       <Routes>
@@ -20,8 +25,8 @@ function App() {
         <Route path='/login' element={<LogIn />} />
         <Route path='/' element={<LogIn />} />
         
-        <Route path='/welcomepage' element={<WelcomePage/>}></Route>
-        <Route path='/profile' element={<ProfilePage/>}></Route>
+        <Route path='/welcomepage' element={verifyUser?<WelcomePage/>:<ErrorPage/>}></Route>
+        <Route path='/profile' element={verifyUser?<ProfilePage/>:<ErrorPage/>}></Route>
 
       </Routes>
     </Fragment>
