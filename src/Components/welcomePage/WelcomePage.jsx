@@ -23,12 +23,19 @@ function WelcomePage(props) {
     const [id,setId]=useState(null);
     const [isEditing,setisEditting]=useState(false);
     const [rerender,setreRender]=useState(false);
+    const [activatePremium,setActivatePremium]=useState(false);
+    const [themeColor,setThemeColor]=useState('white');
 
     function onTitleHandler(event) {
         setTitle(event.target.value);
     }
     function onAmountHandler(event) {
         setAmount(event.target.value);
+        if(event.target.value>=1000){
+            setActivatePremium(true);
+        }else{
+            setActivatePremium(false);
+        }
     }
     function onDescriptionHandler(event) {
         setDescription(event.target.value);
@@ -121,6 +128,7 @@ function WelcomePage(props) {
                     })
                 }
                 setUserData(UserData);
+                
 
             })
         })
@@ -159,6 +167,7 @@ function WelcomePage(props) {
         }).then((res) => {
             if (res.ok) {
                 alert("Your Item Delete Please Refresh The Page")
+                
 
             }
 
@@ -173,6 +182,19 @@ function WelcomePage(props) {
         setisEditting(true)
 
         
+    }
+    const onActivatePremiumFeatureHandler=()=>{
+        console.log("onActivatePremiumFeatureHandler");
+        setThemeColor('gray');
+
+      
+    }
+
+    if(themeColor==='white'){
+        document.querySelector('body').style.backgroundColor=themeColor;
+    }else{
+        document.querySelector('body').style.backgroundColor=themeColor;
+
     }
 
 
@@ -189,6 +211,7 @@ function WelcomePage(props) {
     return (<Fragment>
         <div className='welcomepage'>
             <h4>Welcome to Expence Tracker APP</h4>
+           {activatePremium&& <h4>Activate Premium <button onClick={onActivatePremiumFeatureHandler}>Change Theme</button></h4>}
             <p className='completeProfile'>Your Profile is incomplete <Link to="/profile"> Complete Now </Link></p>
 
         </div>
