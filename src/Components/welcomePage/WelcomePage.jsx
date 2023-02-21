@@ -22,6 +22,7 @@ function WelcomePage(props) {
     const [catagory, setCatagory] = useState('');
     const [id,setId]=useState(null);
     const [isEditing,setisEditting]=useState(false);
+    const [rerender,setreRender]=useState(false);
 
     function onTitleHandler(event) {
         setTitle(event.target.value);
@@ -52,6 +53,8 @@ function WelcomePage(props) {
             headers: {
                 'Content-Type': 'application/json'
             },
+        }).then((data)=>{
+            setreRender(true);
         })
     }else{
         fetch(`https://expencetrackerreact-default-rtdb.firebaseio.com/${authreplaced}/${id}.json`, {
@@ -68,6 +71,7 @@ function WelcomePage(props) {
             },
         }).then((res) => {
             alert("please Update Your Expence")
+            setreRender(true);
         });
         setisEditting(false)
     }
@@ -82,6 +86,7 @@ function WelcomePage(props) {
 
 
 
+        setreRender(false);
     }
 
 
@@ -93,6 +98,7 @@ function WelcomePage(props) {
 
 
 
+    
     let UserData = [];
     useEffect(() => {
 
@@ -118,7 +124,7 @@ function WelcomePage(props) {
 
             })
         })
-    }, [])
+    }, [rerender])
 
     const verifyEmailHandler = (e) => {
         e.preventDefault();
