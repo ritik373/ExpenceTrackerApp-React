@@ -20,20 +20,21 @@ function WelcomePage(props) {
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [catagory, setCatagory] = useState('');
-    const [id,setId]=useState(null);
-    const [isEditing,setisEditting]=useState(false);
-    const [rerender,setreRender]=useState(false);
-    const [activatePremium,setActivatePremium]=useState(false);
-    const [themeColor,setThemeColor]=useState('white');
+    const [id, setId] = useState(null);
+    const [isEditing, setisEditting] = useState(false);
+    const [rerender, setreRender] = useState(false);
+    const [activatePremium, setActivatePremium] = useState(false);
+    const [themeColor, setThemeColor] = useState('white');
 
     function onTitleHandler(event) {
         setTitle(event.target.value);
     }
     function onAmountHandler(event) {
         setAmount(event.target.value);
-        if(event.target.value>=1000){
+        if (event.target.value >= 1000) {
             setActivatePremium(true);
-        }else{
+
+        } else {
             setActivatePremium(false);
         }
     }
@@ -51,37 +52,37 @@ function WelcomePage(props) {
         const auth = AuthContextToken.email
         const replaceEmail = auth.replace('.', '')
         // console.log(replaceEmail);
-      if(!isEditing){
+        if (!isEditing) {
 
-      
-        fetch(`https://expencetrackerreact-default-rtdb.firebaseio.com/${replaceEmail}.json`, {
-            method: 'POST',
-            body: JSON.stringify({ title: title, amount: amount, description: description, catagory: catagory }),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        }).then((data)=>{
-            setreRender(true);
-        })
-    }else{
-        fetch(`https://expencetrackerreact-default-rtdb.firebaseio.com/${authreplaced}/${id}.json`, {
-            method: "PUT",
-            body: JSON.stringify({
 
-                title: title,
-                amount: amount,
-                catagory: catagory,
-                description: description,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((res) => {
-            alert("please Update Your Expence")
-            setreRender(true);
-        });
-        setisEditting(false)
-    }
+            fetch(`https://expencetrackerreact-default-rtdb.firebaseio.com/${replaceEmail}.json`, {
+                method: 'POST',
+                body: JSON.stringify({ title: title, amount: amount, description: description, catagory: catagory }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((data) => {
+                setreRender(true);
+            })
+        } else {
+            fetch(`https://expencetrackerreact-default-rtdb.firebaseio.com/${authreplaced}/${id}.json`, {
+                method: "PUT",
+                body: JSON.stringify({
+
+                    title: title,
+                    amount: amount,
+                    catagory: catagory,
+                    description: description,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }).then((res) => {
+                alert("please Update Your Expence")
+                setreRender(true);
+            });
+            setisEditting(false)
+        }
 
 
 
@@ -105,7 +106,7 @@ function WelcomePage(props) {
 
 
 
-    
+
     let UserData = [];
     useEffect(() => {
 
@@ -128,7 +129,7 @@ function WelcomePage(props) {
                     })
                 }
                 setUserData(UserData);
-                
+
 
             })
         })
@@ -167,13 +168,13 @@ function WelcomePage(props) {
         }).then((res) => {
             if (res.ok) {
                 alert("Your Item Delete Please Refresh The Page")
-                
+
 
             }
 
         })
     }
-    const editHandlerHandler = (id,title1 ,amount1,catagory1,description1) => {
+    const editHandlerHandler = (id, title1, amount1, catagory1, description1) => {
         setId(id)
         setTitle(title1)
         setAmount(amount1);
@@ -181,46 +182,78 @@ function WelcomePage(props) {
         setDescription(description1);
         setisEditting(true)
 
-        
+
     }
-    const onActivatePremiumFeatureHandler=()=>{
+    const onActivatePremiumFeatureHandler = () => {
         console.log("onActivatePremiumFeatureHandler");
         setThemeColor('gray');
 
-      
-    }
-
-    if(themeColor==='white'){
-        document.querySelector('body').style.backgroundColor=themeColor;
-    }else{
-        document.querySelector('body').style.backgroundColor=themeColor;
 
     }
 
+    if (themeColor === 'white') {
+        document.querySelector('body').style.backgroundColor = themeColor;
+    } else {
+        document.querySelector('body').style.backgroundColor = themeColor;
+
+    }
+    const titleArr = data.map((item) => {
+          return item.title;
+
+    })
+    const amountArr = data.map((item) => {
+        return item.amount;
+
+    })
+    const catagoryArr = data.map((item) => {
+        return item.catagory;
+
+    })
+    const descriptionArr = data.map((item) => {
+        return item.title
+
+    })
+    console.log(title);
 
 
+    if (amount >= 1000) {
+        const doc = document.querySelector('.downloadfile');
+        console.log(doc);
+        const blob = new Blob([titleArr,amountArr,catagoryArr,descriptionArr], { type: "text/csv" });
+        doc.href = URL.createObjectURL(blob)
+        console.log(doc)
+
+    }
 
 
-
+    //    console.log(doc);
 
 
     // console.log(data)
 
 
 
+
     return (<Fragment>
         <div className='welcomepage'>
             <h4>Welcome to Expence Tracker APP</h4>
-           {activatePremium&& <h4>Activate Premium <button onClick={onActivatePremiumFeatureHandler}>Change Theme</button></h4>}
+            {activatePremium &&
+                <h4>Activate Premium for  <button onClick={onActivatePremiumFeatureHandler}>Change Theme</button>
+
+
+
+                </h4>}
+            <button>Activate Premium for <a className='downloadfile' download="textfile.csv" style={{ color: 'white' }}>DownloadFile
+             </a> Pay 1000 More Than or Equal</button>
             <p className='completeProfile'>Your Profile is incomplete <Link to="/profile"> Complete Now </Link></p>
 
         </div>
 
         <button onClick={onLogoutHandler}>logout</button>
-        <button type='submit' onClick={verifyEmailHandler} className='emailverify'>Verify Email</button>
+        <button type='submit' onClick={verifyEmailHandler} className='emailverify' >Verify Email</button>
 
 
-       <form onSubmit={onSubmitHandler} className="welcomePageform" >
+        <form onSubmit={onSubmitHandler} className="welcomePageform" >
 
             <label htmlFor="title">Title:</label>
             <input type="text" name="" id="title" value={title} onChange={onTitleHandler} />
@@ -303,13 +336,13 @@ function WelcomePage(props) {
                             <button
                                 type="button"
                                 className="btn btn-warning"
-                                onClick={editHandlerHandler.bind(null, 
+                                onClick={editHandlerHandler.bind(null,
                                     currvalue.id,
-                                    currvalue.title ,
+                                    currvalue.title,
                                     currvalue.amount,
                                     currvalue.catagory,
                                     currvalue.description,
-                                    )} >
+                                )} >
                                 Edit
 
                             </button>
@@ -317,7 +350,7 @@ function WelcomePage(props) {
                         <button
                             type="button"
                             className="btn btn-danger"
-                            onClick={toDeleteDataHandler.bind(null, 
+                            onClick={toDeleteDataHandler.bind(null,
                                 currvalue.id)}
                         >
                             Delete
